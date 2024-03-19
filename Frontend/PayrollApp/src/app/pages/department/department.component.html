@@ -1,0 +1,98 @@
+
+    <!DOCTYPE html>
+    <html lang="en">
+    
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Centered Form and Table</title>
+        <!-- Bootstrap CSS -->
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet"
+            integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+        <style>
+            /* Form Section */
+            .form-container {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 25vh;
+            }
+    
+            /* Form Text */
+            .form-control {
+                font-size: 14px;
+            }
+    
+            /* Table Data */
+            table.table td {
+                font-size: 14px;
+                padding: 0.5rem;
+            }
+        </style>
+    </head>
+    
+    <body>
+        <div class="container">
+            <!-- Department Form Section -->
+            <div class="row">
+                <div class="col">
+                    <h2 class="text-center mb-4">New Department</h2>
+                    <div class="form-container">
+                        <form [formGroup]="formValue">
+                            <div class="form-group">
+                                <label for="name">Department Name</label>
+                                <input type="text" class="form-control" formControlName="deptName">
+                            </div>
+                            <div class="text-center">
+                                <button type="reset" class="btn btn-secondary mx-2" (click)="resetForm()">Reset</button>
+                                <button type="submit" class="btn btn-success mx-2" (click)="saveDepartment()">Save</button>
+                                <button type="button" class="btn btn-warning mx-2" (click)="departmentEdit()">Update</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+    
+            <!-- Department Table Section -->
+            <div class="row mt-4">
+                <div class="col">
+                    <h2 class="text-center mb-4">Departments Details</h2>
+                    <table class="table table-bordered">
+                        <thead class="text-center">
+                            <tr>
+                                <th>ID</th>
+                                <th>Department Name</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let row of departmentData">
+                                <td>{{row.id}}</td>
+                                <td>{{row.deptName}}</td>
+                                <td>
+                                    <button class="btn btn-warning mx-1" (click)="onEdite(row)">Update</button>
+                                    <button class="btn btn-danger mx-1" (click)="deleteDepartment(row.id)">Delete</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    
+        <!-- Bootstrap JS -->
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+            crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"
+            integrity="sha384-06fwefnKnhYzm3uoX3sYPpK3w3/nDRl0tqjt5z8HJCY8iK+jQGUp3FkzKgviyUoL"
+            crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+            integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shCk+2l5dLev+6mGgffgPeWg4wo5aq0w6PwMW"
+            crossorigin="anonymous"></script>
+    </body>
+    
+    </html>
+    
+
+

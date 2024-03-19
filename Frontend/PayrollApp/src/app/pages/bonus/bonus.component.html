@@ -1,0 +1,216 @@
+<!-- <div class="row">
+    <div class="col-8">
+        <div class="card">
+            <div class="card-header bg-primary">
+                <div class="row">
+                    <div class="col-6 text-white">
+                        Bonus Details
+                    </div>
+                    <div class="col-6 text-right">
+
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <table class="table table-bordered">
+                    <thead class="text-center">
+                        <tr>
+                            <th>ID</th>
+                            <th>Employee Name</th>
+                            <th>Amount</th>
+                            <th>BonusDate</th>
+                            <th>Action</th>
+                      
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let row of bonus">
+                            <td>{{row.id}}</td>
+                            <td>{{row.employee?.name}}</td>
+                            <td>{{row.amount}}</td>
+                            <td>{{row.bonusDate}}</td>
+                     
+
+                            <td>
+                                <button class="btn btn-warning mx-1" (click)="onEdit(row)">Update</button>
+                                <button class="btn btn-danger mx-1" (click)="deleteBonus(row.id)">Delete</button>
+                            </td>
+
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col-4">
+        <div class="card">
+            <div class="card-header bg-primary">
+                <div class="row">
+                    <div class="col-6 text-white">
+                        Add Bonus
+                    </div>
+
+                    <div class="col-6 text-right">
+
+                    </div>
+                </div>
+            </div>
+            <form [formGroup]="bonusForm">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-6">
+                            <label for="New_employee">Name:</label>
+                            <select id="employee" formControlName="employee">
+                                <option *ngFor="let empBonus of employees" [ngValue]="empBonus">{{empBonus.name }}</option>
+                            </select>
+                        </div>                                                                                
+                        <div class="col-6">
+                            <label for="name">Amount</label>
+                            <input type="text" class="form-control" formControlName="amount">
+                        </div>                                                                                
+                        <div class="col-6">
+                            <label for="name">BonusTakingDate</label>
+                            <input type="date" class="form-control" formControlName="bonusDate">
+                        </div>                                                                                
+                      </div>
+
+                    <div class="row">
+                        <div class="col-4 text-center pt-3">
+                            <button class="btn btn-secondary btn-sm" (click)=" resetForm()">Reset</button>
+                        </div>
+                        <div class="col-4 text-center pt-3">
+                            <button class="btn btn-success btn-sm" (click)="onSubmit()">Save</button>
+                        </div>
+                        <div class="col-4 text-center pt-3">
+                            <button class="btn btn-warning btn-sm " (click)="updateBonus()">Update</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div> -->
+
+    <!DOCTYPE html>
+    <html lang="en">
+    
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Bonus Management System</title>
+        <!-- Bootstrap CSS -->
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet"
+            integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
+            crossorigin="anonymous">
+        <style>
+            /* Smaller text size for the entire body */
+            body {
+                font-size: 14px;
+            }
+    
+            /* Form container */
+            .form-container {
+                display: flex;
+                justify-content: center;
+                margin-top: 2rem;
+                margin-bottom: 2rem;
+            }
+    
+            /* Minimalistic table */
+            table {
+                border-collapse: collapse;
+                width: 100%;
+            }
+    
+            th,
+            td {
+                border: 1px solid #ddd;
+                padding: 8px;
+                text-align: left;
+            }
+    
+            th {
+                background-color: #f2f2f2;
+            }
+        </style>
+    </head>
+    
+    <body>
+        <div class="container">
+            <!-- Add Bonus Form -->
+            <div class="form-container">
+                <form [formGroup]="bonusForm" class="p-3 border">
+                    <h2 class="text-primary mb-3">Add Bonus</h2>
+                    <!-- Form content -->
+                    <div class="form-group">
+                        <label for="employee">Name:</label>
+                        <select id="employee" formControlName="employee" class="form-control">
+                            <option *ngFor="let empBonus of employees" [ngValue]="empBonus">{{empBonus.name }}</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="amount">Amount:</label>
+                        <input type="text" class="form-control" formControlName="amount">
+                    </div>
+                    <div class="form-group">
+                        <label for="bonusDate">Bonus Taking Date:</label>
+                        <input type="date" class="form-control" formControlName="bonusDate">
+                    </div>
+                    <!-- Buttons -->
+                    <div class="text-center">
+                        <button class="btn btn-secondary mr-2" (click)="resetForm()">Reset</button>
+                        <button class="btn btn-success" (click)="onSubmit()">Save</button>
+                    </div>
+                </form>
+            </div>
+    
+            <!-- Bonus Details Table -->
+            <div class="mt-4">
+                <h5 class="text-primary mb-3">Bonus Details</h5>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Employee Name</th>
+                            <th>Amount</th>
+                            <th>Bonus Date</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Iterate over bonus data to populate table rows -->
+                        <tr *ngFor="let row of bonus">
+                            <td>{{row.id}}</td>
+                            <td>{{row.employee?.name}}</td>
+                            <td>{{row.amount}}</td>
+                            <td>{{row.bonusDate}}</td>
+                            <td>
+                                <button class="btn btn-warning mx-1" (click)="onEdit(row)">Update</button>
+                                <button class="btn btn-danger mx-1" (click)="deleteBonus(row.id)">Delete</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    
+        <!-- Bootstrap JS -->
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+            crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"
+            integrity="sha384-06fwefnKnhYzm3uoX3sYPpK3w3/nDRl0tqjt5z8HJCY8iK+jQGUp3FkzKgviyUoL"
+            crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+            integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shCk+2l5dLev+6mGgffgPeWg4wo5aq0w6PwMW"
+            crossorigin="anonymous"></script>
+    </body>
+    
+    </html>
+    
+    
+
+
+

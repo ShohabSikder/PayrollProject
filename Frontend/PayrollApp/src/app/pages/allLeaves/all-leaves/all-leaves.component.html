@@ -1,0 +1,84 @@
+<!-- Start Date -->
+<div class="row mt-3">
+  <div class="col-6">
+    <label for="">From Date</label>
+    <input type="date" class="form-control" [(ngModel)]="fromDate">
+  </div>
+
+  <div class="col-6">
+    <label for="">To Date</label>
+    <input type="date" class="form-control" [(ngModel)]="toDate">
+  </div>
+</div>
+
+
+<!-- search Box -->
+<div class="row mt-4">
+  <form class="example" action="">
+    <input type="search" [(ngModel)]="searchText" placeholder="Search.." name="search">
+
+  </form>
+</div>
+
+
+<!-- Data Table Show -->
+<div class="row mt-4">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-header bg-primary">
+        <div class="row">
+          <div class="col-6 text-white">
+            Leave Details
+          </div>
+          <div class="col-6 text-right">
+
+          </div>
+        </div>
+      </div>
+      <div class="card-body">
+        <table class="table table-bordered">
+          <thead class="text-center">
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Contact</th>
+              <th>Leave Date</th>
+              <th>Leave Reason</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let row of filterDataByDateRange() | filter: searchText; let i = index">
+              <td>{{i+1}}</td>
+              <td>{{row.employee?.name}}</td>
+              <td>{{row.contact}}</td>
+              <td>{{row.leaveDate}}</td>
+              <td>{{row.leaveReason}}</td>
+              <!-- <td><span [ngClass]="{'badge ':true,
+                'bg-warning': row.grant == 1
+                                    ,'bg-primary': row.grant == 2,}>
+                {{row.grant}}</span>
+               </td> -->
+               <td>
+                <!-- <span [ngClass]=" { 'badge':true,
+              'bg-warning': row.grant ==false,
+              'bg-primary' : row.grant == true}">
+                  {{row.grant}}
+                </span> -->
+                <span *ngIf=" row.grant == false" Class="badge bg-danger">Disapproved</span>
+                <span *ngIf=" row.grant == true" Class="badge bg-primary">Approved</span>
+               </td>
+
+
+              <td>
+                <button class="btn btn-warning mx-1" (click)="onEdit(row)" [disabled]=" row.grant == true">Grant</button>
+
+              </td>
+
+            </tr>
+          </tbody>
+        </table>
+
+      </div>
+    </div>
+  </div>

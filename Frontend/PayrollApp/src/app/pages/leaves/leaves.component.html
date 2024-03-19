@@ -1,0 +1,209 @@
+<!-- <div class="row">
+    
+    <div class="col-8">
+        <div class="card">
+            <div class="card-header bg-primary">
+                <div class="row">
+                    <div class="col-6 text-white">
+                        Leave Details
+                    </div>
+                    <div class="col-6 text-right">
+
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <table class="table table-bordered">
+                    <thead class="text-center">
+                        <tr>
+                            <th>ID</th>
+                            <th> Name</th>
+                            <th>Contact</th>
+                            <th>Leave Date</th>
+                            <th>Leave Reason</th>
+
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let row of leaveData let i=index">
+                            <td>{{i+1}}</td>
+                            <td>{{row.employee.name}}</td>
+                            <td>{{row.contact}}</td>
+                            <td>{{row.leaveDate}}</td>
+                            <td>{{row.leaveReason}}</td>
+
+
+                            <td>
+                                <button class="btn btn-warning mx-1" (click)="onEdite(row)">Edit</button>
+                                <button class="btn btn-danger mx-1" (click)="deleteLeave(row)">Delete</button>
+                            </td>
+
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+
+            <div class="col-4">
+                <div class="card">
+                    <div class="card-header bg-primary">
+                        <div class="row">
+                            <div class="col-6 text-white">
+                                Leave
+                            </div>
+                            <div class="col-6 text-right">
+                            </div>
+                        </div>
+                    </div>
+                    <form [formGroup]="formValue">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-6">
+                                    <label for="firstName">First Name</label>
+                                    <select id="department" formControlName="employee">
+                                        <option *ngFor="let empLeave of employees2" [ngValue]="empLeave">{{empLeave.name }}
+                                        </option>
+                                    </select>
+                                    <input type="text" class="form-control" formControlName="employee">
+                                </div>
+                                <div class="col-6">
+                                    <label for="contact">Contact</label>
+                                    <input type="text" class="form-control" formControlName="contact">
+                                </div>
+                                <div class="col-6">
+                                    <label for="leaveDate">Leave Date</label>
+                                    <input type="date" class="form-control" formControlName="leaveDate">
+                                </div>
+                                <div class="col-6">
+                                    <label for="leaveReason">Leave Reason</label>
+                                    <textarea class="form-control" formControlName="leaveReason"></textarea>
+                                </div>
+                            </div>
+        
+                            <div class="row">
+                                <div class="col-4 text-center pt-3">
+                                    <button class="btn btn-secondary btn-sm" (click)="resetForm()">Reset</button>
+                                </div>
+                                <div class="col-4 text-center pt-3">
+                                    <button class="btn btn-success btn-sm" (click)="leaveSave()">Save</button>
+                                </div>
+                                <div class="col-4 text-center pt-3">
+                                    <button class="btn btn-warning btn-sm" (click)="leaveEdit()">Update</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div> -->
+
+
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Leave Management</title>
+            <!-- Bootstrap CSS -->
+            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+            <style>
+                .table th,
+                .table td {
+                    font-size: 14px;
+                }
+            </style>
+        </head>
+        <body>
+            <div class="container">
+                <!-- First Row - Form -->
+                <div class="row">
+                    <div class="col-12">
+                        <h2 class="text-center mb-4">Leave</h2>
+                        <form [formGroup]="formValue">
+                            <div class="row">
+                                <div class="col-6">
+                                    <label for="firstName">First Name</label>
+                                    <input type="text" class="form-control" formControlName="employee">
+                                    <!-- <select id="department" formControlName="employee">
+                                        <option *ngFor="let empLeave of employees2" [ngValue]="empLeave">{{empLeave.name }}
+                                        </option>
+                                    </select> -->
+                                </div>
+                                <div class="col-6">
+                                    <label for="contact">Contact</label>
+                                    <input type="text" class="form-control" formControlName="contact">
+                                </div>
+                                <div class="col-6">
+                                    <label for="leaveDate">Leave Date</label>
+                                    <input type="date" class="form-control" formControlName="leaveDate">
+                                </div>
+                                <div class="col-6">
+                                    <label for="leaveReason">Leave Reason</label>
+                                    <textarea class="form-control" formControlName="leaveReason"></textarea>
+                                </div>
+                            </div>
+        
+                            <div class="row mt-3">
+                                <div class="col-4 text-center">
+                                    <button class="btn btn-secondary btn-sm" (click)="resetForm()">Reset</button>
+                                </div>
+                                <div class="col-4 text-center">
+                                    <button class="btn btn-success btn-sm" (click)="leaveSave()">Save</button>
+                                </div>
+                                <div class="col-4 text-center">
+                                    <button class="btn btn-warning btn-sm" (click)="leaveEdit()">Update</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+        
+                <!-- Second Row - Table -->
+                <div class="row mt-5">
+                    <div class="col-12">
+                        <h2 class="text-center mb-4">Leave Details</h2>
+                        <table class="table table-bordered">
+                            <thead class="text-center">
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th>Contact</th>
+                                    <th>Leave Date</th>
+                                    <th>Leave Reason</th>
+                                    <!-- <th>Action</th> -->
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let row of leaveData let i=index">
+                                    <td>{{i+1}}</td>
+                                    <td>{{row.employee.name}}</td>
+                                    <td>{{row.contact}}</td>
+                                    <td>{{row.leaveDate}}</td>
+                                    <td>{{row.leaveReason}}</td>
+                                    <!-- <td>
+                                        <button class="btn btn-warning mx-1" (click)="onEdite(row)">Edit</button>
+                                        <button class="btn btn-danger mx-1" (click)="deleteLeave(row)">Delete</button>
+                                    </td> -->
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        
+            <!-- Bootstrap JS -->
+            <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+            <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js" integrity="sha384-06fwefnKnhYzm3uoX3sYPpK3w3/nDRl0tqjt5z8HJCY8iK+jQGUp3FkzKgviyUoL" crossorigin="anonymous"></script>
+            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shCk+2l5dLev+6mGgffgPeWg4wo5aq0w6PwMW" crossorigin="anonymous"></script>
+        </body>
+        </html>
+        
+        
+
+
+        
+          
+        

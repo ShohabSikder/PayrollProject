@@ -1,0 +1,370 @@
+<!-- <div class="row">
+    <div class="col-8">
+        <div class="card">
+            <div class="card-header bg-primary">
+                <div class="row">
+                    <div class="col-6 text-white">
+                        Employees Details
+                    </div>
+                    <div class="col-6 text-right">
+
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <table class="table table-bordered">
+                    <thead class="text-center">
+                        <tr>
+                            <th>ID</th>
+                            <th>Employee Name</th>
+                            <th>Salary</th>
+                            <th>Bonus</th>
+                            <th>Advance</th>
+                            <th>Action</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let emp of employeesDt; index as i">
+                            <td>{{i+1}}</td>
+                            <td>{{emp[0]}}</td>
+                            <td>{{emp[1]}}</td>
+                            <td>{{emp[2]}}</td>
+                            <td>{{emp[3]}}</td>
+                            <td>
+                                <button class="btn btn-warning mx-1" (click)="onFromDataSet(emp)">Update</button>             
+                            </td>
+
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header bg-primary">
+                <div class="row">
+                    <div class="col-6 text-white">
+                        Salary Details
+                    </div>
+                    <div class="col-6 text-right">
+
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <table class="table table-bordered">
+                    <thead class="text-center">
+                        <tr>
+                            <th>ID</th>
+                            <th>Employee Name</th>
+                            <th>Amount</th>
+                            <th>Total Amount</th>
+                            <th>Date</th>
+                            <th>Action</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let row of salaries">
+                            <td>{{row.id}}</td>
+                            <td>{{row.employee?.name}}</td>
+                            <td>{{row.amount}}</td>
+                            <td>{{row.totalSalary}}</td>
+                            <td>{{row.date}}</td>
+
+
+
+                            <td>
+                                <button class="btn btn-warning mx-1" (click)="onEdit(row)">Update</button>
+                                <button class="btn btn-danger mx-1" (click)="deleteSalary(row.id)">Delete</button>
+                            </td>
+
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col-4">
+        <div class="card">
+            <div class="card-header bg-primary">
+                <div class="row">
+                    <div class="col-6 text-white">
+                        Add Salary
+                    </div>
+                    <div class="col-6 text-right">
+                    </div>
+                </div>
+            </div>
+            <form [formGroup]="salariesForm">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-6">
+                            <label for="employee">Name:</label>
+
+                            <input type="text" class="form-control" formControlName="employee">
+                        </div>
+                        <div class="col-6">
+                            <label for="name">Amount</label>
+                            <input type="text" class="form-control" formControlName="amount">
+                        </div>
+                        <div class="col-6">
+                            <label for="name">Bonus</label>
+                            <input type="text" class="form-control" formControlName="bonus">
+                        </div>
+                        <div class="col-6">
+                            <label for="name">Advance</label>
+                            <input type="text" class="form-control" formControlName="advance">
+                        </div>
+                        <div class="col-6">
+                            <label for="name">Total Salary</label>
+                            <input type="text" class="form-control" formControlName="totalSalary" (click)="calculate()">
+                        </div>
+                        <div class="col-6">
+                            <label for="name">Date</label>
+                            <input type="date" class="form-control" formControlName="date">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-4 text-center pt-3">
+                            <button class="btn btn-secondary btn-sm" (click)=" resetForm()">Reset</button>
+                        </div>
+                        <div class="col-4 text-center pt-3">
+                            <button class="btn btn-success btn-sm" (click)="onSubmit()">Save</button>
+                        </div>
+                        <div class="col-4 text-center pt-3">
+                            <button class="btn btn-warning btn-sm " (click)="updateSalaries()">Update</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div> -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee and Salary Management</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <style>
+        /* Smaller text size for the entire body */
+        body {
+            font-size: 14px;
+        }
+
+        /* Minimalistic table */
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        /* Centered heading */
+        .center-heading {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <!-- Employees Details Table -->
+        <div class="row">
+            <div class="col-12">
+                <h2 class="text-primary center-heading mb-3">Employees Details</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Employee Name</th>
+                            <th>Salary</th>
+                            <th>Bonus</th>
+                            <th>Advance</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let emp of employeesDt; index as i">
+                            <td>{{i+1}}</td>
+                            <td>{{emp[0]}}</td>
+                            <td>{{emp[1]}}</td>
+                            <td>{{emp[2]}}</td>
+                            <td>{{emp[3]}}</td>
+                            <td>
+                                <button class="btn btn-warning mx-1" (click)="onFromDataSet(emp)">Salary Pass</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Add Salary Form -->
+        <div class="row mt-4">
+            <div class="col-12">
+                <h2 class="text-primary center-heading mb-3">Add Salary</h2>
+                <form [formGroup]="salariesForm">
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="employee">Employee Name:</label>
+                                <input type="text" class="form-control" formControlName="employee">
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="amount">Amount:</label>
+                                <input type="text" class="form-control" formControlName="amount">
+                            </div>
+                        </div>
+                        <div class="row col-md-12">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="amount">Month</label>
+                                    <select class="form-select" formControlName="workingdays" (change)="monthSelect()">
+                                        <option>Janauary</option>
+                                        <option>February</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div *ngIf="this.menytype" class="row col-md-8">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="amount">Working Days</label>
+                                        <input type="text" class="form-control" formControlName="empworkingdays"
+                                        [value]="getWorkingDays()">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="amount">Present Days</label>
+                                        <input type="text" class="form-control" 
+                                            formControlName="empPresent" >
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="amount">Granted Leaves</label>
+                                        <input type="text" class="form-control" value="0" formControlName="empLeaves" placeholder="0" readonly>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="amount">Absent Days</label>
+                                        <input type="text" class="form-control" formControlName="empabsent" (click)="absentDaycount()">
+                                    </div>
+                                </div>
+                                
+                            </div>
+
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4">
+                            <div class="form-group">
+                                <label for="bonus">Bonus:</label>
+                                <input type="text" class="form-control" formControlName="empBonus">
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="form-group">
+                                <label for="advance">Advance:</label>
+                                <input type="text" class="form-control" formControlName="empAdvance">
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="form-group">
+                                <label for="advance">Fine:</label>
+                                <input type="text" class="form-control" formControlName="empFines">
+                                <span class="fs-5 text-secondary">50 tk fined per day</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="totalSalary">Total Salary:</label>
+                                <input type="text" class="form-control" formControlName="totalSalary"
+                                    (click)="calculate()">
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="date">Date:</label>
+                                <input type="date" class="form-control" formControlName="date">
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Buttons -->
+                    <div class="text-center">
+                        <button class="btn btn-secondary mr-2" (click)="resetForm()">Reset</button>
+                        <button class="btn btn-success" (click)="onSubmit()">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Salary Details Table -->
+        <div class="row mt-4">
+            <div class="col-12">
+                <h2 class="text-primary center-heading mb-3">Salary Details</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Employee Name</th>
+                            <th>Amount</th>
+                            <th>Bonus(+)</th>
+                            <th>Advance(-)</th>
+                            <th>Total Amount</th>
+                            <th>Date</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let row of salaries">
+                            <td>{{row.id}}</td>
+                            <td>{{row.employee?.name}}</td>
+                            <td>{{row.amount}}</td>
+                            <td>{{row.empBonus}}</td>
+                            <td>{{row.empAdvance}}</td>
+                            <td>{{row.totalSalary}}</td>
+                            <td>{{row.date}}</td>
+                            <td>
+                                <button class="btn btn-warning mx-1" (click)="onEdit(row)">Update</button>
+                                <button class="btn btn-danger mx-1" (click)="deleteSalary(row.id)">Delete</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVB"></script>
+</body>
+
+</html>

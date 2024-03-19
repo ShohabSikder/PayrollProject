@@ -1,0 +1,104 @@
+{
+  "employee": [
+    {
+      "id": 1,
+      "firstName": "Shohab",
+      "lastName": "Hasan",
+      "email": "taskinhasan@gmail.com",
+      "department": "Finance",
+      "gender": "male",
+      "contact": "252552",
+      "salary": "50000"
+    },
+    {
+      "firstName": "Taskin",
+      "lastName": "Ahmed",
+      "email": "shohab4057@gmail.com",
+      "department": "Accountant",
+      "gender": "male",
+      "contact": "016636552",
+      "salary": "125252",
+      "id": 2
+    },
+    {
+      "firstName": "Taskin",
+      "lastName": "Hasan",
+      "email": "taskinhasan@gmail.com",
+      "department": "Manager",
+      "gender": "male",
+      "contact": "56353",
+      "salary": "453453",
+      "id": 3
+    },
+    {
+      "firstName": "Karim",
+      "lastName": "Abdullah",
+      "email": "shohab4057@gmail.com",
+      "department": "Finance",
+      "gender": "male",
+      "contact": "01688132317",
+      "salary": "52000",
+      "id": 4
+    }
+  ],
+  "attendance": [
+    {
+      "firstName": "Shohab",
+      "inTime": "15:39",
+      "outTime": "15:39",
+      "date": "2023-12-12",
+      "id": 1
+    },
+    {
+      "firstName": "Taskin",
+      "inTime": "17:42",
+      "outTime": "12:45",
+      "date": "2023-12-20",
+      "id": 2
+    },
+    {
+      "id": 3,
+      "firstName": "Taskin",
+      "inTime": "22:50",
+      "outTime": "07:45",
+      "date": "2023-12-13"
+    }
+  ],
+  "leave": [
+    {
+      "id": 2,
+      "firstName": "Taskin",
+      "contact": "01255522",
+      "leaveDate": "2023-12-20",
+      "leaveReason": "fever",
+      "leaveType": "Paid Leave"
+    },
+    {
+      "id": 3,
+      "firstName": "Shohab",
+      "contact": "25422",
+      "leaveDate": "2023-12-21",
+      "leaveReason": "gsdfg",
+      "leaveType": "Unpaid Leave"
+    },
+    {
+      "id": 4,
+      "firstName": "Karim",
+      "contact": "5252525",
+      "leaveDate": "2023-12-28",
+      "leaveReason": "sick",
+      "leaveType": "Paid Leave"
+    },
+    {
+      "id": 5,
+      "firstName": "Karim",
+      "contact": "525522",
+      "leaveDate": "2023-11-22",
+      "leaveReason": "sick",
+      "leaveType": "Paid Leave"
+    }
+  ],
+  "profile": {
+    "name": "typicode"
+  }
+}
